@@ -7,12 +7,12 @@ def ValNumInt(x):
             return ValNumInt(input('Debe ingresar un dato numérico: '))
         
 class ImplanteMedico:
-    def __init__(self, tipo , funcion, fecha_implantacion, medico_responsable, estado):
+    def __init__(self, tipo , funcion):
         self.__tipo = tipo
         self.__funcion = funcion
-        self.__fecha_implantacion = fecha_implantacion
-        self.__medico_responsable = medico_responsable
-        self.__estado = estado
+        self.__fecha_implantacion = None
+        self.__medico_responsable = None
+        self.__estado = None
     def getTipo(self):
         return self.__tipo
     def getFuncion(self):
@@ -121,7 +121,7 @@ class ImplantesDentales(ImplanteMedico):
 
         
 
-class implanteRodilla(ImplanteMedico):
+class ImplanteRodilla(ImplanteMedico):
     def __init__(self, tipo , funcion, material , tipo_fijacion, tamaño):
         super().__init__(tipo, funcion, material , tipo_fijacion, tamaño)
         self.__material = material
@@ -185,25 +185,61 @@ class Inventario:
 
 def main():
     while True:
-        menu = ValNumInt('''
-                         Bienvenido al sistema.
-                         Seleccione la operación que desea realizar
-                         1. Agregar nuevo implante
-                         2. Eliminar implante
-                         3. Editar información 
-                         4. Visualizar inventario completo.
-                         -> ''')
+        menu = ValNumInt(input('''                   
+                                Bienvenido al sistema.
+                                Seleccione la operación que desea realizar
+                                1. Agregar nuevo implante
+                                2. Agregar paciente
+                                3. Eliminar implante
+                                4. Editar información 
+                                5. Visualizar inventario completo
+                                6. Salir
+                                -> '''))
         if menu == 1:
-            pass
+            while True:
+                tipo = ValNumInt(input('''
+                         Ingrese el tipo de implante: 
+                         1. MarcapasosCoronario
+                         2. StentCoronario
+                         3. ImplantesDentales 
+                         4. ImplanteRodilla
+                         5. ImplanteCadera 
+                         -> '''))
+                if tipo == 1:
+                    tipo = MarcapasosCoronario
+                    break
+                elif tipo ==2:
+                    tipo = StentCoronario
+                    break
+                elif tipo ==3:
+                    tipo = ImplantesDentales
+                    break
+                elif tipo == 4:
+                    tipo = ImplanteRodilla
+                    break
+                elif tipo == 5:
+                    tipo = ImplanteCadera
+                    break
+                else:
+                    print('Ha seleccionado una opción no valida')
+                    continue
+            funcion = input('Ingrese la funcion del implante: ')
+            I = ImplanteMedico(tipo,funcion)
+            Inv = Inventario()
+            Inv.agregar_implante(I)
+        
+            print('Se ha ingresado el implante correctamente')
         elif menu == 2:
             pass
         elif menu == 3:
             pass
-        elif menu == 4:
-            pass
         elif menu == 5:
+            Inv = Inventario
+            Inv.mostrar_inventario()
+        elif menu == 6:
             break
         else:
             print('-ERROR-'*10)
             print('Debe seleccionar una opción válida')
         
+main()

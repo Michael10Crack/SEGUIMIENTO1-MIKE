@@ -25,7 +25,7 @@ class StentCoronario(ImplanteMedico):
 class ImplantesDentales(ImplanteMedico):
     def __init__(self):
         pass
-    
+
 class ProtesisRodilla(ImplanteMedico):
     def __init__(self):
         pass
@@ -40,4 +40,17 @@ def main():
                          3. Editar información 
                          4. Visualizar inventario completo.
                          -> ''')
+        if menu == 1:
+            pass
+        elif menu == 2:
+            pass
+        elif menu == 3:
+            pass
+        elif menu == 4:
+            pass
+        elif menu == 5:
+            break
+        else:
+            print('-ERROR-'*10)
+            print('Debe seleccionar una opción válida')
         

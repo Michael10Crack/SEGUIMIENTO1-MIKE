@@ -5,16 +5,42 @@ def ValNumInt(x):
             return x
         except ValueError:
             return ValNumInt(input('Debe ingresar un dato numérico: '))
-        
-class SistemaG:
+class Sistema():
+    def __init__(self):
+        self.__bd = []
+    def registrar_paciente(self,paciente):
+        self.__paciente = paciente
+    def asignar_implante(self, implante, fecha_implantacion, medico_responsable, estado):
+        implante.__fecha_implantacion = fecha_implantacion
+        implante.__medico_responsable = medico_responsable
+        implante.__estado = estado
+        self.__implantes.append(implante)
+class Inventario:
     def __init__(self):
         self.__implante = []
 
-    def VerInventario(self):
-        return self.__implante
-    
     def agregar_implante(self, implante):
         self.__implante.append(implante)
+
+    def eliminar_implante(self, implante):
+        self.__implante.remove(implante)
+    
+    def editar_implante(self,implante):
+        pass
+
+    def getInventario(self):
+        for implante in self.__implante:
+            print(f'Tipo de implante: {type(implante).__name__}')
+            print(implante)
+            print('----------------------------')
+
+    def verificar_existencia(self, tipo):
+        for implante in self.__implante:
+            if implante.tipo == tipo:
+                return True
+        return False
+
+        
 class ImplanteMedico:
     def __init__(self, tipo , funcion):
         self.__tipo = tipo
@@ -73,7 +99,7 @@ class Paciente:
 
 class MarcapasosCoronario(ImplanteMedico):
     def __init__(self, tipo , funcion , electrodos, conexion, frecuencia):
-        super().__init__(tipo, funcion, electrodos, conexion, frecuencia)
+        super().__init__(tipo, funcion)
         self.__electrodos = electrodos
         self.__conexion = conexion
         self.__frecuencia = frecuencia
@@ -91,7 +117,7 @@ class MarcapasosCoronario(ImplanteMedico):
         self.__frecuencia = f
 class StentCoronario(ImplanteMedico):
     def __init__(self, tipo , funcion, longitud, diametro, material):
-        super().__init__(tipo,funcion,longitud,diametro,material)
+        super().__init__(tipo,funcion)
         self.__longitud = longitud
         self.__diametro = diametro
         self.__material = material
@@ -111,7 +137,7 @@ class StentCoronario(ImplanteMedico):
 
 class ImplantesDentales(ImplanteMedico):
     def __init__(self, tipo , funcion, forma , sistema_fijacion, material):
-        super().__init__(tipo, funcion, forma, sistema_fijacion, material)
+        super().__init__(tipo, funcion)
         self.__forma = forma 
         self.__sistema_fijacion = sistema_fijacion
         self.__material = material
@@ -132,7 +158,7 @@ class ImplantesDentales(ImplanteMedico):
 
 class ImplanteRodilla(ImplanteMedico):
     def __init__(self, tipo , funcion, material , tipo_fijacion, tamaño):
-        super().__init__(tipo, funcion, material , tipo_fijacion, tamaño)
+        super().__init__(tipo, funcion)
         self.__material = material
         self.__tipo_fijacion = tipo_fijacion
         self.__tamaño = tamaño
@@ -153,7 +179,7 @@ class ImplanteRodilla(ImplanteMedico):
 
 class ImplanteCadera(ImplanteMedico):
     def __init__(self, tipo , funcion, material , tipo_fijacion, tamaño):
-        super().__init__(tipo, funcion, material , tipo_fijacion, tamaño)
+        super().__init__(tipo, funcion)
         self.__material = material
         self.__tipo_fijacion = tipo_fijacion
         self.__tamaño = tamaño
@@ -171,29 +197,55 @@ class ImplanteCadera(ImplanteMedico):
         self.__tamaño = t
 
 
-class Inventario:
-    def __init__(self):
-        self.__implante = []
 
-    def agregar_implante(self, implante):
-        self.__implante.append(implante)
-
-    def eliminar_implante(self, implante):
-        self.__implante.remove(implante)
-    
-    def editar_implante(self,implante):
-        pass
-
-    def getInventario(self):
-        for implante in self.__implante:
-            print(f'Tipo de implante: {type(implante).__name__}')
-            print(implante)
-            print('----------------------------')
-
-
+def menu_agregar_implante():
+    while True:
+        tipo = ValNumInt(input('''Ingrese el tipo de implante: 
+                                        1. MarcapasosCoronario
+                                        2. StentCoronario
+                                        3. ImplantesDentales 
+                                        4. ImplanteRodilla
+                                        5. ImplanteCadera 
+                                        -> '''))
+        if tipo == 1:
+            funcion = input('Ingrese la función del implante: ')
+            electrodos = input('Ingrese el número de electrodos: ')
+            conexion = input('Ingrese el tipo de conexión: ')
+            frecuencia = input('Ingrese la frecuencia: ')
+            implante = MarcapasosCoronario( tipo, funcion, electrodos, conexion, frecuencia)
+            return implante
+        elif tipo == 2:
+            funcion = input('Ingrese la función del implante: ')
+            longitud = input('Ingrese la longitud: ')
+            diametro = input('Ingrese el diámetro: ')
+            material = input('Ingrese el material: ')
+            implante = StentCoronario( tipo, funcion, longitud, diametro, material)
+            return implante
+        elif tipo == 3:
+            funcion = input('Ingrese la función del implante: ')
+            forma = input('Ingrese la forma: ')
+            sistema_fijacion = input('Ingrese el sistema de fijación: ')
+            material = input('Ingrese el material: ')
+            implante = ImplantesDentales( tipo, funcion, forma, sistema_fijacion, material)
+            return implante
+        elif tipo == 4:
+            funcion = input('Ingrese la función del implante: ')
+            material = input('Ingrese el material: ')
+            tipo_fijacion = input('Ingrese el tipo de fijación: ')
+            tamaño = input('Ingrese el tamaño: ')
+            implante = ImplanteRodilla( tipo, funcion, material, tipo_fijacion, tamaño)
+            return implante
+        elif tipo == 5:
+            funcion = input('Ingrese la función del implante: ')
+            material = input('Ingrese el material: ')
+            tipo_fijacion = input('Ingrese el tipo de fijación: ')
+            tamaño = input('Ingrese el tamaño: ')
+            implante = ImplanteCadera( tipo, funcion, material, tipo_fijacion, tamaño)
+            return implante
+        else:
+            print('Por favor seleccione un implante válido')
 
 def main():
-    sis = SistemaG
     while True:
         menu = ValNumInt(input('''                   
                                 Bienvenido al sistema.
@@ -206,47 +258,24 @@ def main():
                                 6. Salir
                                 -> '''))
         if menu == 1:
-            while True:
-                tipo = ValNumInt(input('''
-                         Ingrese el tipo de implante: 
-                         1. MarcapasosCoronario
-                         2. StentCoronario
-                         3. ImplantesDentales 
-                         4. ImplanteRodilla
-                         5. ImplanteCadera 
-                         -> '''))
-                if tipo == 1:
-                    tipo = MarcapasosCoronario
-                    break
-                elif tipo ==2:
-                    tipo = StentCoronario
-                    break
-                elif tipo ==3:
-                    tipo = ImplantesDentales
-                    break
-                elif tipo == 4:
-                    tipo = ImplanteRodilla
-                    break
-                elif tipo == 5:
-                    tipo = ImplanteCadera
-                    break
-                else:
-                    print('Ha seleccionado una opción no valida')
-                    continue
-            funcion = input('Ingrese la funcion del implante: ')
-            sis.agregar_implante(tipo, funcion)
-            # I = ImplanteMedico(tipo,funcion)
-            # Inv = Inventario()
-            # Inv.agregar_implante(I)
-        
+            implante = menu_agregar_implante()
+            Inventario().agregar_implante(implante)
             print('Se ha ingresado el implante correctamente')
         elif menu == 2:
-            pass
+            p = Paciente
+            nombre = input('Ingrese el/los nombre del paciente: ')
+            apellido = input('Ingrese los apellidos del paciente: ')
+            edad = ValNumInt(input('Digite la edad del paciente: '))
+            paciente = p(nombre,apellido,edad)
+            print(f' Nombre del paciente: {paciente.getNombre()}')
+            print(f' Apellido del paciente: {paciente.getApellido()}')
+            print(f' Edad del paciente: {paciente.getEdad()}')
         elif menu == 3:
             pass
         elif menu == 5:
-            Inv = Inventario
-            Inv.getInventario(Inventario)
+            Inv = Inventario()
+            print(Inv.getInventario())
+        
         elif menu == 6:
             break
         else:

@@ -6,6 +6,15 @@ def ValNumInt(x):
         except ValueError:
             return ValNumInt(input('Debe ingresar un dato numérico: '))
         
+class SistemaG:
+    def __init__(self):
+        self.__implante = []
+
+    def VerInventario(self):
+        return self.__implante
+    
+    def agregar_implante(self, implante):
+        self.__implante.append(implante)
 class ImplanteMedico:
     def __init__(self, tipo , funcion):
         self.__tipo = tipo
@@ -164,19 +173,19 @@ class ImplanteCadera(ImplanteMedico):
 
 class Inventario:
     def __init__(self):
-        self.implante = []
+        self.__implante = []
 
     def agregar_implante(self, implante):
-        self.implante.append(implante)
+        self.__implante.append(implante)
 
     def eliminar_implante(self, implante):
-        self.implante.remove(implante)
+        self.__implante.remove(implante)
     
     def editar_implante(self,implante):
         pass
 
-    def mostrar_inventario(self):
-        for implante in self.implante:
+    def getInventario(self):
+        for implante in self.__implante:
             print(f'Tipo de implante: {type(implante).__name__}')
             print(implante)
             print('----------------------------')
@@ -184,6 +193,7 @@ class Inventario:
 
 
 def main():
+    sis = SistemaG
     while True:
         menu = ValNumInt(input('''                   
                                 Bienvenido al sistema.
@@ -224,9 +234,10 @@ def main():
                     print('Ha seleccionado una opción no valida')
                     continue
             funcion = input('Ingrese la funcion del implante: ')
-            I = ImplanteMedico(tipo,funcion)
-            Inv = Inventario()
-            Inv.agregar_implante(I)
+            sis.agregar_implante(tipo, funcion)
+            # I = ImplanteMedico(tipo,funcion)
+            # Inv = Inventario()
+            # Inv.agregar_implante(I)
         
             print('Se ha ingresado el implante correctamente')
         elif menu == 2:
@@ -235,7 +246,7 @@ def main():
             pass
         elif menu == 5:
             Inv = Inventario
-            Inv.mostrar_inventario()
+            Inv.getInventario(Inventario)
         elif menu == 6:
             break
         else:

@@ -10,13 +10,37 @@ class ImplanteMedico:
     def __init__(self, tipo , funcion ):
         self.__tipo = tipo
         self.__funcion = funcion
+        self.__fecha_implantacion = None
+        self.__medico_responsable = None
+        self.__estado = None
 
 class Paciente:
     def __init__(self, Nombre, Apellido, Edad):
         self.__nombre = Nombre
         self.__apellido = Apellido
         self.__edad = Edad
-        self.implantes = []
+        self.__implantes = []
+    def getNombre(self):
+        return self.__nombre
+    def getApellido(self):
+        return self.__apellido
+    def getEdad(self):
+        return self.__edad
+    def getImplante(self):
+        return self.__implantes
+    def setNombre(self, n):
+        self.__nombre = n
+    def setApellido(self,a):
+        self.__apellido = a
+    def setEdad(self,e):
+        self.__edad = e
+    def setImplante(self, i = ImplanteMedico):
+        self.__implantes.append(i)
+    
+
+    def asignar_implante(self, implante, fecha_implantacion, medico_responsable, estado):
+        implante.__fecha_impantacion = fecha_implantacion
+
 
 
 class MarcapasosCoronario(ImplanteMedico):

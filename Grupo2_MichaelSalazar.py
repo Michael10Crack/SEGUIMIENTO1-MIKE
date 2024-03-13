@@ -7,28 +7,54 @@ def ValNumInt(x):
             return ValNumInt(input('Debe ingresar un dato numérico: '))
         
 class ImplanteMedico:
-    def __init__(self):
-        pass
+    def __init__(self, tipo , funcion ):
+        self.__tipo = tipo
+        self.__funcion = funcion
+
+class Paciente:
+    def __init__(self, Nombre, Apellido, Edad):
+        self.__nombre = Nombre
+        self.__apellido = Apellido
+        self.__edad = Edad
+
 
 class ProtesisCadera(ImplanteMedico):
-    def __init__(self):
+    def __init__(self, tipo , funcion):
         pass
 
 class MarcapasosCoronoario(ImplanteMedico):
-    def __init__(self):
+    def __init__(self, tipo , funcion):
         pass
 
 class StentCoronario(ImplanteMedico):
-    def __init__(self):
+    def __init__(self, tipo , funcion):
         pass
 
 class ImplantesDentales(ImplanteMedico):
-    def __init__(self):
+    def __init__(self, tipo , funcion):
         pass
 
 class ProtesisRodilla(ImplanteMedico):
-    def __init__(self):
+    def __init__(self, tipo , funcion):
         pass
+
+class Inventario:
+    def __init__(self):
+        self.protesis = []
+
+    def agregar_protesis(self, protesis):
+        self.protesis.append(protesis)
+
+    def eliminar_protesis(self, protesis):
+        self.protesis.remove(protesis)
+
+    def mostrar_inventario(self):
+        for protesis in self.protesis:
+            print(f'Tipo de máquina: {type(protesis).__name__}')
+            print(protesis)
+            print('----------------------------')
+
+
 
 def main():
     while True:

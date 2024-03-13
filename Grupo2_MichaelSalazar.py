@@ -50,7 +50,7 @@ class Inventario:
 
     def mostrar_inventario(self):
         for protesis in self.protesis:
-            print(f'Tipo de máquina: {type(protesis).__name__}')
+            print(f'Tipo de protesis: {type(protesis).__name__}')
             print(protesis)
             print('----------------------------')
 

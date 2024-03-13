@@ -16,42 +16,69 @@ class Paciente:
         self.__nombre = Nombre
         self.__apellido = Apellido
         self.__edad = Edad
+        self.implantes = []
 
 
-class ProtesisCadera(ImplanteMedico):
-    def __init__(self, tipo , funcion):
-        pass
+class MarcapasosCoronario(ImplanteMedico):
+    def __init__(self, tipo , funcion , electrodos, conexion, frecuencia):
+        super().__init__(tipo, funcion, electrodos, conexion, frecuencia)
+        self.__electrodos = electrodos
+        self.__conexion = conexion
+        self.__frecuencia = frecuencia
 
-class MarcapasosCoronoario(ImplanteMedico):
-    def __init__(self, tipo , funcion):
-        pass
+
 
 class StentCoronario(ImplanteMedico):
-    def __init__(self, tipo , funcion):
-        pass
+    def __init__(self, tipo , funcion, longitud, diametro, material):
+        super().__init__(tipo,funcion,longitud,diametro,material)
+        self.__longitud = longitud
+        self.__diametro = diametro
+        self.__material = material
+
 
 class ImplantesDentales(ImplanteMedico):
-    def __init__(self, tipo , funcion):
-        pass
+    def __init__(self, tipo , funcion, forma , sistema_fijacion, material):
+        super().__init__(tipo, funcion, forma, sistema_fijacion, material)
+        self.__forma = forma 
+        self.__sistema_fijacion = sistema_fijacion
+        self.__material = material
 
-class ProtesisRodilla(ImplanteMedico):
-    def __init__(self, tipo , funcion):
-        pass
+        
+
+class implanteRodilla(ImplanteMedico):
+    def __init__(self, tipo , funcion, material , tipo_fijacion, tamaño):
+        super().__init__(tipo, funcion, material , tipo_fijacion, tamaño)
+        self.__material = material
+        self.__tipo_fijacion = tipo_fijacion
+        self.__tamaño = tamaño
+
+
+
+class ImplanteCadera(ImplanteMedico):
+    def __init__(self, tipo , funcion, material , tipo_fijacion, tamaño):
+        super().__init__(tipo, funcion, material , tipo_fijacion, tamaño)
+        self.__material = material
+        self.__tipo_fijacion = tipo_fijacion
+        self.__tamaño = tamaño
+
 
 class Inventario:
     def __init__(self):
-        self.protesis = []
+        self.implante = []
 
-    def agregar_protesis(self, protesis):
-        self.protesis.append(protesis)
+    def agregar_implante(self, implante):
+        self.implante.append(implante)
 
-    def eliminar_protesis(self, protesis):
-        self.protesis.remove(protesis)
+    def eliminar_implante(self, implante):
+        self.implante.remove(implante)
+    
+    def editar_implante(self,implante):
+        pass
 
     def mostrar_inventario(self):
-        for protesis in self.protesis:
-            print(f'Tipo de protesis: {type(protesis).__name__}')
-            print(protesis)
+        for implante in self.implante:
+            print(f'Tipo de implante: {type(implante).__name__}')
+            print(implante)
             print('----------------------------')
 
 

@@ -7,13 +7,33 @@ def ValNumInt(x):
             return ValNumInt(input('Debe ingresar un dato numérico: '))
         
 class ImplanteMedico:
-    def __init__(self, tipo , funcion ):
+    def __init__(self, tipo , funcion, fecha_implantacion, medico_responsable, estado):
         self.__tipo = tipo
         self.__funcion = funcion
-        self.__fecha_implantacion = None
-        self.__medico_responsable = None
-        self.__estado = None
-
+        self.__fecha_implantacion = fecha_implantacion
+        self.__medico_responsable = medico_responsable
+        self.__estado = estado
+    def getTipo(self):
+        return self.__tipo
+    def getFuncion(self):
+        return self.__funcion
+    def getFechaImplantacion(self):
+        return self.__fecha_implantacion
+    def getMedico(self):
+        return self.__medico_responsable
+    def getEstado(self):
+        return self.__estado
+    
+    def setTipo(self, t):
+        self.__tipo = t
+    def setFuncion(self, f):
+        self.__funcion = f
+    def setFechaImplantacion(self, f):
+        self.__fecha_implantacion = f
+    def setMedico(self, m):
+        self.__medico_responsable = m
+    def setEstado(self, e):
+        self.__estado = e
 class Paciente:
     def __init__(self, Nombre, Apellido, Edad):
         self.__nombre = Nombre
@@ -34,12 +54,11 @@ class Paciente:
         self.__apellido = a
     def setEdad(self,e):
         self.__edad = e
-    def setImplante(self, i = ImplanteMedico):
-        self.__implantes.append(i)
-    
-
     def asignar_implante(self, implante, fecha_implantacion, medico_responsable, estado):
-        implante.__fecha_impantacion = fecha_implantacion
+        implante.__fecha_implantacion = fecha_implantacion
+        implante.__medico_responsable = medico_responsable
+        implante.__estado = estado
+        self.__implantes.append(implante)
 
 
 
@@ -49,15 +68,36 @@ class MarcapasosCoronario(ImplanteMedico):
         self.__electrodos = electrodos
         self.__conexion = conexion
         self.__frecuencia = frecuencia
-
-
-
+    def getElectrodos(self):
+        return self.__electrodos
+    def getConexion(self):
+        return self.__conexion
+    def getFrecuencia(self):
+        return self.__frecuencia
+    def setElectrodos(self, n):
+        self.__electrodos = n
+    def setConexion(self,c):
+        self.__conexion = c
+    def setFrecuencia(self, f):
+        self.__frecuencia = f
 class StentCoronario(ImplanteMedico):
     def __init__(self, tipo , funcion, longitud, diametro, material):
         super().__init__(tipo,funcion,longitud,diametro,material)
         self.__longitud = longitud
         self.__diametro = diametro
         self.__material = material
+    def getLongitud(self):
+        return self.__longitud
+    def getDiametro(self):
+        return self.__diametro
+    def getMaterial(self):
+        return self.__material
+    def setLongitud(self, l):
+        self.__longitud = l
+    def setDiametro(self,d):
+        self.__diametro = d
+    def setMaterial(self,m):
+        self.__material = m
 
 
 class ImplantesDentales(ImplanteMedico):
@@ -66,6 +106,18 @@ class ImplantesDentales(ImplanteMedico):
         self.__forma = forma 
         self.__sistema_fijacion = sistema_fijacion
         self.__material = material
+    def getForma(self):
+        return self.__forma
+    def getSisFijacion(self):
+        return self.__sistema_fijacion
+    def getMaterial(self):
+        return self.__material
+    def setForma(self, f):
+        self.__forma = f
+    def setSisFijacion(self,s):
+        self.__sistema_fijacion = s
+    def setMaterial(self,m):
+        self.__material = m
 
         
 
@@ -75,6 +127,18 @@ class implanteRodilla(ImplanteMedico):
         self.__material = material
         self.__tipo_fijacion = tipo_fijacion
         self.__tamaño = tamaño
+    def getMaterial(self):
+        return self.__material
+    def getTipoFijacion(self):
+        return self.__tipo_fijacion
+    def getTamaño(self):
+        return self.__tamaño
+    def setMaterial(self,m):
+        self.__material = m
+    def setTipoFijacion(self, tf):
+        self.__tipo_fijacion = tf
+    def setTamaño(self, t):
+        self.__tamaño = t
 
 
 
@@ -84,6 +148,18 @@ class ImplanteCadera(ImplanteMedico):
         self.__material = material
         self.__tipo_fijacion = tipo_fijacion
         self.__tamaño = tamaño
+    def getMaterial(self):
+        return self.__material
+    def getTipoFijacion(self):
+        return self.__tipo_fijacion
+    def getTamaño(self):
+        return self.__tamaño
+    def setMaterial(self,m):
+        self.__material = m
+    def setTipoFijacion(self, tf):
+        self.__tipo_fijacion = tf
+    def setTamaño(self, t):
+        self.__tamaño = t
 
 
 class Inventario:

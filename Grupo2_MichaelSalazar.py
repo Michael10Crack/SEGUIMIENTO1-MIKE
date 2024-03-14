@@ -9,12 +9,9 @@ class Sistema():
     def __init__(self):
         self.__bd = []
     def registrar_paciente(self,paciente):
-        self.__paciente = paciente
-    def asignar_implante(self, implante, fecha_implantacion, medico_responsable, estado):
-        implante.__fecha_implantacion = fecha_implantacion
-        implante.__medico_responsable = medico_responsable
-        implante.__estado = estado
-        self.__implantes.append(implante)
+        self.__bd.append(paciente)
+    def getbase_datos(self):
+        return self.__bd
 class Inventario:
     def __init__(self):
         self.__implante = []
@@ -90,9 +87,9 @@ class Paciente:
     def setEdad(self,e):
         self.__edad = e
     def asignar_implante(self, implante, fecha_implantacion, medico_responsable, estado):
-        implante.__fecha_implantacion = fecha_implantacion
-        implante.__medico_responsable = medico_responsable
-        implante.__estado = estado
+        implante.__setFecha_implantacion = fecha_implantacion
+        implante.__setMedico_responsable = medico_responsable
+        implante.__setEstado = estado
         self.__implantes.append(implante)
 
 
@@ -252,31 +249,49 @@ def main():
                                 Seleccione la operación que desea realizar
                                 1. Agregar nuevo implante
                                 2. Agregar paciente
-                                3. Eliminar implante
-                                4. Editar información 
-                                5. Visualizar inventario completo
-                                6. Salir
+                                3. Asignar implante a un paciente
+                                4. Eliminar implante
+                                5. Editar información 
+                                6. Visualizar inventario completo
+                                7. Salir
                                 -> '''))
         if menu == 1:
             implante = menu_agregar_implante()
             Inventario().agregar_implante(implante)
             print('Se ha ingresado el implante correctamente')
         elif menu == 2:
+            sis = Sistema()
             p = Paciente
             nombre = input('Ingrese el/los nombre del paciente: ')
             apellido = input('Ingrese los apellidos del paciente: ')
             edad = ValNumInt(input('Digite la edad del paciente: '))
             paciente = p(nombre,apellido,edad)
-            print(f' Nombre del paciente: {paciente.getNombre()}')
-            print(f' Apellido del paciente: {paciente.getApellido()}')
-            print(f' Edad del paciente: {paciente.getEdad()}')
+            sis.registrar_paciente(paciente)
+            print('Información agregada exitósamente')
+            print('-'*50)
+            # print(f' Nombre del paciente: {paciente.getNombre()}')
+            # print(f' Apellido del paciente: {paciente.getApellido()}')
+            # print(f' Edad del paciente: {paciente.getEdad()}')
         elif menu == 3:
+            p = Paciente
+            nombre = input('Ingrese el/los nombre del paciente: ')
+            apellido = input('Ingrese los apellidos del paciente: ')
+            edad = ValNumInt(input('Digite la edad del paciente: '))
+            paciente = p(nombre, apellido, edad)
+            tipo_implante = input('Ingrese el tipo de implante: ')
+            funcion_implante = input('Ingrese la función del implante: ')
+            implante = ImplanteMedico(tipo_implante, funcion_implante)
+
+        elif menu == 4:
             pass
         elif menu == 5:
             Inv = Inventario()
             print(Inv.getInventario())
         
         elif menu == 6:
+            Inv = Inventario()
+            print(Inv.getInventario())
+        elif menu == 7:
             break
         else:
             print('-ERROR-'*10)

@@ -20,26 +20,28 @@ class Inventario:
         self.__implantes.append(implante)
 
     def eliminar_implante(self, implante):
-        if implante in self.__implantes:
+        try:
             self.__implantes.remove(implante)
             print('Se ha eliminado correctamente del inventario.')
-        else:
+        except ValueError:
             print('Implante no encontrado en el sistema.')
     
     def editar_implante(self,implante):
         pass
+    def getImplantes(self):
+        return self.__implantes
 
-    def getInventario(self):
-        for implante in self.__implante:
-            print(f'Tipo de implante: {type(implante).__name__}')
-            print(implante)
-            print('----------------------------')
+    # def getInventario(self):
+    #     for implante in self.__implante:
+    #         print(f'Tipo de implante: {type(implante).__name__}')
+    #         print(implante)
+    #         print('----------------------------')
 
-    def verificar_existencia(self, tipo):
-        for implante in self.__implante:
-            if implante.tipo == tipo:
-                return True
-        return False
+    # def verificar_existencia(self, tipo):
+    #     for implante in self.__implante:
+    #         if implante.tipo == tipo:
+    #             return True
+    #     return False
 
         
 class ImplanteMedico:
@@ -116,6 +118,8 @@ class MarcapasosCoronario(ImplanteMedico):
         self.__conexion = c
     def setFrecuencia(self, f):
         self.__frecuencia = f
+    def __str__(self):
+        return f"Tipo: {self.__tipo}, Función: {self.__funcion}, Electrodos: {self.__electrodos}, Conexión: {self.__conexion}, Frecuencia: {self.__frecuencia}"
 class StentCoronario(ImplanteMedico):
     def __init__(self, tipo , funcion, longitud, diametro, material):
         super().__init__(tipo,funcion)
@@ -134,6 +138,9 @@ class StentCoronario(ImplanteMedico):
         self.__diametro = d
     def setMaterial(self,m):
         self.__material = m
+    def __str__(self):
+        return f"Tipo: {self.__tipo}, Función: {self.__funcion}, Longitud: {self.__longitud}, Diámetro: {self.__diametro}, Material: {self.__material}"
+    
 
 
 class ImplantesDentales(ImplanteMedico):
@@ -154,6 +161,8 @@ class ImplantesDentales(ImplanteMedico):
         self.__sistema_fijacion = s
     def setMaterial(self,m):
         self.__material = m
+    def __str__(self):
+        return f"Tipo: {self.__tipo}, Función: {self.__funcion}, Forma: {self.__forma}, Sistema de Fijación: {self.__sistema_fijacion}, Material: {self.__material}"
 
         
 
@@ -175,6 +184,8 @@ class ImplanteRodilla(ImplanteMedico):
         self.__tipo_fijacion = tf
     def setTamaño(self, t):
         self.__tamaño = t
+    def __str__(self):
+        return f"Tipo: {self.__tipo}, Función: {self.__funcion}, Material: {self.__material}, Tipo de fijación: {self.__tipo_fijacion}, Tamaño: {self.__tamaño}"
 
 
 
@@ -196,6 +207,9 @@ class ImplanteCadera(ImplanteMedico):
         self.__tipo_fijacion = tf
     def setTamaño(self, t):
         self.__tamaño = t
+    def __str__(self):
+        return f"Tipo: {self.__tipo}, Función: {self.__funcion}, Material: {self.__material}, Tipo de fijación: {self.__tipo_fijacion}, Tamaño: {self.__tamaño}"
+
 
 
 
@@ -247,6 +261,7 @@ def menu_agregar_implante():
             print('Por favor seleccione un implante válido')
 
 def main():
+    inv = Inventario()
     while True:
         menu = ValNumInt(input('''                   
                                 Bienvenido al sistema.
@@ -261,8 +276,8 @@ def main():
                                 -> '''))
         if menu == 1:
             implante = menu_agregar_implante()
-            Inventario().agregar_implante(implante)
-            print('Se ha ingresado el implante correctamente')
+            inv.agregar_implante(implante)
+            print('Se ha ingresado el implante correctamente')  
         elif menu == 2:
             sis = Sistema()
             p = Paciente
@@ -291,14 +306,20 @@ def main():
             paciente.asignar_implante(implante, fecha_implantacion, medico_responsable, estado)
 
         elif menu == 4:
-            inv = Inventario
-            print('Lista de implantes en el inventario: ')
-            for i, implante in enumerate(inv.__implantes, start=1):
-                print(f'{i}. {implante}')
-            Eliminar = ValNumInt(input('Seleccione el número de implante que desea eliminar: '))
-            if 1 <= Eliminar <= len(inv.__implantes):
-                implante_eliminado = inv.__implantes[Eliminar - 1]
-                inv.eliminar_implante(implante_eliminado)
+            lista_implantes = inv.getImplantes()
+            if not lista_implantes:
+                print('El inventario está vacío.')
+            else:
+                print('Lista de implantes en el inventario: ')
+                for i, implante in enumerate(lista_implantes, start=1):
+                    print(f'{i}. {implante}')
+                Eliminar = ValNumInt(input('Seleccione el número de implante que desea eliminar: '))
+                if 1 <= Eliminar <= len(lista_implantes):
+                    implante_eliminado = lista_implantes[Eliminar - 1]
+                    inv.eliminar_implante(implante_eliminado)
+                    print('Implante eliminado correctamente del inventario.')
+                else:
+                    print('No se ha encontrado el implante seleccionado en el inventario')
         elif menu == 5:
             Inv = Inventario()
             print(Inv.getInventario())

@@ -14,13 +14,17 @@ class Sistema():
         return self.__bd
 class Inventario:
     def __init__(self):
-        self.__implante = []
+        self.__implantes = []
 
     def agregar_implante(self, implante):
-        self.__implante.append(implante)
+        self.__implantes.append(implante)
 
     def eliminar_implante(self, implante):
-        self.__implante.remove(implante)
+        if implante in self.__implantes:
+            self.__implantes.remove(implante)
+            print('Se ha eliminado correctamente del inventario.')
+        else:
+            print('Implante no encontrado en el sistema.')
     
     def editar_implante(self,implante):
         pass
@@ -251,7 +255,7 @@ def main():
                                 2. Agregar paciente
                                 3. Asignar implante a un paciente
                                 4. Eliminar implante
-                                5. Editar información 
+                                5. Editar información de implante
                                 6. Visualizar inventario completo
                                 7. Salir
                                 -> '''))
@@ -281,9 +285,20 @@ def main():
             tipo_implante = input('Ingrese el tipo de implante: ')
             funcion_implante = input('Ingrese la función del implante: ')
             implante = ImplanteMedico(tipo_implante, funcion_implante)
+            fecha_implantacion = input('Ingrese la fecha de implantación (dd/mm/aaaa): ')
+            medico_responsable = input('Ingrese el nombre del médico responsable: ')
+            estado = input('Ingrese el estado del implante: ')
+            paciente.asignar_implante(implante, fecha_implantacion, medico_responsable, estado)
 
         elif menu == 4:
-            pass
+            inv = Inventario
+            print('Lista de implantes en el inventario: ')
+            for i, implante in enumerate(inv.__implantes, start=1):
+                print(f'{i}. {implante}')
+            Eliminar = ValNumInt(input('Seleccione el número de implante que desea eliminar: '))
+            if 1 <= Eliminar <= len(inv.__implantes):
+                implante_eliminado = inv.__implantes[Eliminar - 1]
+                inv.eliminar_implante(implante_eliminado)
         elif menu == 5:
             Inv = Inventario()
             print(Inv.getInventario())

@@ -394,8 +394,14 @@ def main():
                             print('No se ha encontrado el implante seleccionado en el inventario.')
         
         elif menu == 6:
-            Inv = Inventario()
-            print(Inv.getInventario())
+            lista_implantes = inv.getImplantes()
+            if not lista_implantes:
+                print('El inventario está vacío.')
+            else:
+                print('Lista de implantes en el inventario: ')
+                for i, implante in enumerate(lista_implantes, start=1):
+                    print(f'{i}. {implante}')
+                
         elif menu == 7:
             break
         else:

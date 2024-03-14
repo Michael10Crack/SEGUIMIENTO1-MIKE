@@ -326,8 +326,72 @@ def main():
                 else:
                     print('No se ha encontrado el implante seleccionado en el inventario')
         elif menu == 5:
-            Inv = Inventario()
-            print(Inv.getInventario())
+            lista_implantes = inv.getImplantes()
+            if not lista_implantes:
+                print('El inventario está vacío.')
+            else:
+                print('Lista de implantes en el inventario: ')
+                for i, implante in enumerate(lista_implantes, start=1):
+                    print(f'{i}. {implante}')
+
+                editar = ValNumInt(input('Seleccione el número de implante que desea editar: '))
+                if 1 <= editar <= len(lista_implantes):
+                    implante_editar = lista_implantes[editar - 1]
+                    while True:
+                        nuevo_nombre = ValNumInt(input('''Seleccione el nuevo tipo de implante:
+                                            1. MarcapasosCoronario
+                                            2. StentCoronario
+                                            3. ImplantesDentales 
+                                            4. ImplanteRodilla
+                                            5. ImplanteCadera 
+                                            -> '''))
+                        if nuevo_nombre == 1:
+                            tipo = 'MarcapasosCoronario'
+                            funcion = input('Ingrese la función del implante: ')
+                            electrodos = input('Ingrese el número de electrodos: ')
+                            conexion = input('Ingrese el tipo de conexión: ')
+                            frecuencia = input('Ingrese la frecuencia: ')
+                            implante = MarcapasosCoronario( tipo, funcion, electrodos, conexion, frecuencia)
+                            print('Información del implante editada correctamente.')
+                            return implante
+                        elif nuevo_nombre== 2:
+                            tipo = 'StentCoronario'
+                            funcion = input('Ingrese la función del implante: ')
+                            longitud = input('Ingrese la longitud: ')
+                            diametro = input('Ingrese el diámetro: ')
+                            material = input('Ingrese el material: ')
+                            implante = StentCoronario( tipo, funcion, longitud, diametro, material)
+                            print('Información del implante editada correctamente.')
+                            return implante
+                        elif nuevo_nombre == 3:
+                            tipo = 'ImplantesDentales '
+                            funcion = input('Ingrese la función del implante: ')
+                            forma = input('Ingrese la forma: ')
+                            sistema_fijacion = input('Ingrese el sistema de fijación: ')
+                            material = input('Ingrese el material: ')
+                            implante = ImplantesDentales( tipo, funcion, forma, sistema_fijacion, material)
+                            print('Información del implante editada correctamente.')
+                            return implante
+                        elif nuevo_nombre== 4:
+                            tipo = 'ImplanteRodilla'
+                            funcion = input('Ingrese la función del implante: ')
+                            material = input('Ingrese el material: ')
+                            tipo_fijacion = input('Ingrese el tipo de fijación: ')
+                            tamaño = input('Ingrese el tamaño: ')
+                            implante = ImplanteRodilla( tipo, funcion, material, tipo_fijacion, tamaño)
+                            print('Información del implante editada correctamente.')
+                            return implante
+                        elif nuevo_nombre == 5:
+                            tipo = 'ImplanteCadera '
+                            funcion = input('Ingrese la función del implante: ')
+                            material = input('Ingrese el material: ')
+                            tipo_fijacion = input('Ingrese el tipo de fijación: ')
+                            tamaño = input('Ingrese el tamaño: ')
+                            implante = ImplanteCadera( tipo, funcion, material, tipo_fijacion, tamaño)
+                            print('Información del implante editada correctamente.')
+                            return implante
+                        else:
+                            print('No se ha encontrado el implante seleccionado en el inventario.')
         
         elif menu == 6:
             Inv = Inventario()

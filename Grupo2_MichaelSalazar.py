@@ -119,7 +119,8 @@ class MarcapasosCoronario(ImplanteMedico):
     def setFrecuencia(self, f):
         self.__frecuencia = f
     def __str__(self):
-        return f"Tipo: {self.__tipo}, Función: {self.__funcion}, Electrodos: {self.__electrodos}, Conexión: {self.__conexion}, Frecuencia: {self.__frecuencia}"
+        return f"Tipo: {self._ImplanteMedico__tipo}, Función: {self._ImplanteMedico__funcion}, Electrodos: {self.__electrodos}, Conexión: {self.__conexion}, Frecuencia: {self.__frecuencia}"
+    
 class StentCoronario(ImplanteMedico):
     def __init__(self, tipo , funcion, longitud, diametro, material):
         super().__init__(tipo,funcion)
@@ -139,7 +140,7 @@ class StentCoronario(ImplanteMedico):
     def setMaterial(self,m):
         self.__material = m
     def __str__(self):
-        return f"Tipo: {self.__tipo}, Función: {self.__funcion}, Longitud: {self.__longitud}, Diámetro: {self.__diametro}, Material: {self.__material}"
+        return f"Tipo: {self._ImplanteMedico__tipo}, Función: {self._ImplanteMedico__funcion}, Longitud: {self.__longitud}, Diámetro: {self.__diametro}, Material: {self.__material}"
     
 
 
@@ -162,7 +163,7 @@ class ImplantesDentales(ImplanteMedico):
     def setMaterial(self,m):
         self.__material = m
     def __str__(self):
-        return f"Tipo: {self.__tipo}, Función: {self.__funcion}, Forma: {self.__forma}, Sistema de Fijación: {self.__sistema_fijacion}, Material: {self.__material}"
+        return f"Tipo: {self._ImplanteMedico__tipo}, Función: {self._ImplanteMedico__funcion}, Forma: {self.__forma}, Sistema de Fijación: {self.__sistema_fijacion}, Material: {self.__material}"
 
         
 
@@ -185,7 +186,7 @@ class ImplanteRodilla(ImplanteMedico):
     def setTamaño(self, t):
         self.__tamaño = t
     def __str__(self):
-        return f"Tipo: {self.__tipo}, Función: {self.__funcion}, Material: {self.__material}, Tipo de fijación: {self.__tipo_fijacion}, Tamaño: {self.__tamaño}"
+        return f"Tipo: {self._ImplanteMedico__tipo}, Función: {self._ImplanteMedico__funcion}, Material: {self.__material}, Tipo de fijación: {self.__tipo_fijacion}, Tamaño: {self.__tamaño}"
 
 
 
@@ -208,7 +209,7 @@ class ImplanteCadera(ImplanteMedico):
     def setTamaño(self, t):
         self.__tamaño = t
     def __str__(self):
-        return f"Tipo: {self.__tipo}, Función: {self.__funcion}, Material: {self.__material}, Tipo de fijación: {self.__tipo_fijacion}, Tamaño: {self.__tamaño}"
+        return f"Tipo: {self._ImplanteMedico__tipo}, Función: {self._ImplanteMedico__funcion}, Material: {self.__material}, Tipo de fijación: {self.__tipo_fijacion}, Tamaño: {self.__tamaño}"
 
 
 
@@ -223,6 +224,7 @@ def menu_agregar_implante():
                                         5. ImplanteCadera 
                                         -> '''))
         if tipo == 1:
+            tipo = 'MarcapasosCoronario'
             funcion = input('Ingrese la función del implante: ')
             electrodos = input('Ingrese el número de electrodos: ')
             conexion = input('Ingrese el tipo de conexión: ')
@@ -230,6 +232,7 @@ def menu_agregar_implante():
             implante = MarcapasosCoronario( tipo, funcion, electrodos, conexion, frecuencia)
             return implante
         elif tipo == 2:
+            tipo = 'StentCoronario'
             funcion = input('Ingrese la función del implante: ')
             longitud = input('Ingrese la longitud: ')
             diametro = input('Ingrese el diámetro: ')
@@ -237,6 +240,7 @@ def menu_agregar_implante():
             implante = StentCoronario( tipo, funcion, longitud, diametro, material)
             return implante
         elif tipo == 3:
+            tipo = 'ImplantesDentales '
             funcion = input('Ingrese la función del implante: ')
             forma = input('Ingrese la forma: ')
             sistema_fijacion = input('Ingrese el sistema de fijación: ')
@@ -244,6 +248,7 @@ def menu_agregar_implante():
             implante = ImplantesDentales( tipo, funcion, forma, sistema_fijacion, material)
             return implante
         elif tipo == 4:
+            tipo = 'ImplanteRodilla'
             funcion = input('Ingrese la función del implante: ')
             material = input('Ingrese el material: ')
             tipo_fijacion = input('Ingrese el tipo de fijación: ')
@@ -251,6 +256,7 @@ def menu_agregar_implante():
             implante = ImplanteRodilla( tipo, funcion, material, tipo_fijacion, tamaño)
             return implante
         elif tipo == 5:
+            tipo = 'ImplanteCadera '
             funcion = input('Ingrese la función del implante: ')
             material = input('Ingrese el material: ')
             tipo_fijacion = input('Ingrese el tipo de fijación: ')
@@ -317,7 +323,6 @@ def main():
                 if 1 <= Eliminar <= len(lista_implantes):
                     implante_eliminado = lista_implantes[Eliminar - 1]
                     inv.eliminar_implante(implante_eliminado)
-                    print('Implante eliminado correctamente del inventario.')
                 else:
                     print('No se ha encontrado el implante seleccionado en el inventario')
         elif menu == 5:
